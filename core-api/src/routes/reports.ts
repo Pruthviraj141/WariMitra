@@ -47,12 +47,12 @@ router.post("/", authenticate, validate(createReportSchema), async (req: Request
   try {
     const confirmationCode = uuidv4().slice(0, 8).toUpperCase();
 
-    const report = await Report.create({
-      ...req.body,
-      reporterPhone: req.user!.phoneNumber || "9845352492",
-      confirmationCode,
-      status: "pending",
-    });
+  const report = await Report.create({
+    ...req.body,
+    reporterPhone: req.user!.phoneNumber || req.body.reporterPhone || "unknown",
+    confirmationCode,
+    status: "pending",
+  });
 
     logger.info({ reportId: report._id, type: report.type }, "Report created");
 
@@ -72,10 +72,9 @@ router.patch("/:id/confirm", authenticate, async (req: Request, res: Response, n
     const report = await Report.findById(req.params.id);
     if (!report) throw new NotFoundError("Report not found");
 
-    const userPhone = req.user!.phoneNumber || "9845352492";
-    if (report.reporterPhone !== userPhone) {
-      throw new BadRequestError("Only the reporter can confirm this report");
-    }
+  if (req.user!.role !== "admin" && report.reporterPhone !== req.user!.phoneNumber && report.reporterPhone !== "unknown") {
+    throw new BadRequestError("Only the reporter can confirm this report");
+  }
 
     if (report.status !== "pending") {
       throw new BadRequestError(`Report is already ${report.status}`);
