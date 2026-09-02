@@ -1,8 +1,12 @@
 <div align="center">
   
-![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=300&section=header&text=Visava&fontSize=100&fontAlignY=35&desc=AI-Powered%20Pilgrimage%20Assistance&descAlignY=55&descAlign=50&animation=fadeIn)
+![Futuristic Header](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=26&pause=1000&color=F77E21&center=true&vCenter=true&width=800&height=50&lines=Connecting+Varkaris+with+Help+in+Real+Time;Voice+AI.+Real-time+Maps.+Lifesaving;Empowering+the+Warkari+Community+Worldwide" alt="Typing SVG" />
+<a href="https://github.com/Pruthviraj141/WariMitra">
+  <img src="https://readme-typing-svg.demolab.com?font=Righteous&weight=900&size=110&pause=1000&color=FF5722&center=true&vCenter=true&width=1000&height=180&lines=VISAVA;WARI+MITRA;VOICE+AI" alt="Typing SVG" />
+</a>
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=24&pause=1000&color=F77E21&center=true&vCenter=true&width=800&height=50&lines=Connecting+Varkaris+with+Help+in+Real+Time;Voice+AI.+Real-time+Maps.+Lifesaving;Empowering+the+Warkari+Community+Worldwide" alt="Typing SVG" />
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Active%20Development-success.svg?style=for-the-badge&logo=github">
@@ -78,24 +82,24 @@ graph TD
     classDef cache fill:#DC382D,stroke:#333,stroke-width:2px,color:#fff;
 
     %% Nodes
-    User((👤 Varkari / User)):::user
-    Nginx[🌐 Nginx / React Frontend]:::gateway
-    Vapi[🎙️ Vapi AI Cloud]:::ai
-    VA[🤖 Voice Agent (Node.js)]:::service
-    CA[⚙️ Core API (Node.js)]:::service
-    GS[🗺️ Geo Service (Go)]:::service
-    MongoDB[(🍃 MongoDB Atlas)]:::db
-    Redis[(🔴 Redis Cache)]:::cache
+    User(("👤 Varkari / User")):::user
+    Nginx["🌐 Nginx / React Frontend"]:::gateway
+    Vapi["🎙️ Vapi AI Cloud"]:::ai
+    VA["🤖 Voice Agent (Node.js)"]:::service
+    CA["⚙️ Core API (Node.js)"]:::service
+    GS["🗺️ Geo Service (Go)"]:::service
+    MongoDB[("🍃 MongoDB Atlas")]:::db
+    Redis[("🔴 Redis Cache")]:::cache
 
     %% Connections
-    User -- Browser / GPS --> Nginx
-    User -- Phone / Voice --> Vapi
-    Nginx -- REST API --> CA
-    Vapi -- Webhook / Tools --> VA
-    VA -- Fetch Services --> CA
-    CA -- Geo Queries --> GS
-    CA -- Read / Write --> MongoDB
-    GS -- Sub-millisecond Cache --> Redis
+    User -- "Browser / GPS" --> Nginx
+    User -- "Phone / Voice" --> Vapi
+    Nginx -- "REST API" --> CA
+    Vapi -- "Webhook / Tools" --> VA
+    VA -- "Fetch Services" --> CA
+    CA -- "Geo Queries" --> GS
+    CA -- "Read / Write" --> MongoDB
+    GS -- "Sub-millisecond Cache" --> Redis
 ```
 
 ---
