@@ -1,4 +1,4 @@
-import { Bell } from 'lucide-react';
+import { Bell, Phone } from 'lucide-react';
 import { useState } from 'react';
 import { useNotifications } from '../context/NotificationContext';
 import { NotificationDrawer } from './NotificationDrawer';
@@ -36,7 +36,25 @@ export const Header = ({ showGreeting = true, rightAction, transparentBg = false
             </div>
           )}
         </div>
-        <div className="header-right">
+        <div className="header-right" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <a 
+            href="tel:+18633499178" 
+            className="glass-panel"
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '6px', 
+              padding: '8px 12px', 
+              borderRadius: '20px', 
+              textDecoration: 'none',
+              color: 'var(--visava-orange)',
+              fontWeight: '600',
+              fontSize: '14px'
+            }}
+          >
+            <Phone size={16} />
+            <span className="hide-on-mobile">Hindi Helpline</span>
+          </a>
           {rightAction !== undefined ? rightAction : (
             <button 
               className="notification-btn glass-panel" 
