@@ -26,7 +26,7 @@ export const CreateReportModal: React.FC<CreateReportModalProps> = ({ onClose })
 
     setIsUploading(true);
     try {
-      const res = await axios.post('http://localhost:3000/api/v1/upload', formData);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1'}/upload`, formData);
       if (res.data && res.data.url) {
         setMedia(prev => [...prev, res.data.url]);
       } else {
@@ -54,7 +54,7 @@ export const CreateReportModal: React.FC<CreateReportModalProps> = ({ onClose })
       // 1. Create Report
       // Note: we hardcode location for now, but ideally this would use geolocation
       const token = localStorage.getItem('visava_token');
-      const createRes = await axios.post('http://localhost:3000/api/v1/reports', {
+      const createRes = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1'}/reports`, {
         type,
         description,
         media,
@@ -71,7 +71,7 @@ export const CreateReportModal: React.FC<CreateReportModalProps> = ({ onClose })
       const reportId = createRes.data.report._id;
 
       // 2. Confirm to trigger Broadcast
-      await axios.patch(`http://localhost:3000/api/v1/reports/${reportId}/confirm`, {}, {
+      await axios.patch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1'}/reports/${reportId}/confirm`, {}, {
         headers: {
           Authorization: `Bearer ${token}`
         }

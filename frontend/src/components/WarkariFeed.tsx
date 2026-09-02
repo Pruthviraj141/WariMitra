@@ -4,7 +4,7 @@ import L from 'leaflet';
 import axios from 'axios';
 import { Phone, Utensils, Tent, AlertTriangle, Layers } from 'lucide-react';
 
-const CORE_API_URL = 'http://localhost:3000/api/v1';
+const CORE_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
 
 const createIcon = (color: string, iconUrl: string) => {
   return new L.DivIcon({
@@ -132,7 +132,7 @@ export default function WarkariFeed() {
             return (
               <div key={loc.member_id} className="feed-card" onClick={() => handleCardClick(loc)}>
                 {detail.media && detail.media.length > 0 ? (
-                  <img src={detail.media[0].startsWith('http') ? detail.media[0] : `http://localhost:3000${detail.media[0]}`} alt="Location" className="feed-card-img" />
+                  <img src={detail.media[0].startsWith('http') ? detail.media[0] : `http://${window.location.hostname}:3000${detail.media[0]}`} alt="Location" className="feed-card-img" />
                 ) : (
                   <div className="feed-card-img-placeholder">
                     {loc.entity_type === 'camp' ? '⛺' : loc.entity_type === 'service' ? '🍲' : '⚠️'}
@@ -177,7 +177,7 @@ export default function WarkariFeed() {
                     {detail && (
                       <>
                         {detail.media && detail.media.length > 0 && (
-                          <img src={detail.media[0].startsWith('http') ? detail.media[0] : `http://localhost:3000${detail.media[0]}`} alt="Location" className="popup-img" />
+                          <img src={detail.media[0].startsWith('http') ? detail.media[0] : `http://${window.location.hostname}:3000${detail.media[0]}`} alt="Location" className="popup-img" />
                         )}
                         <h3 style={{ margin: '0 0 4px 0', color: loc.entity_type === 'report' ? '#ef4444' : '#f97316' }}>
                           {detail.name || (loc.entity_type === 'report' && '⚠️ Emergency Report')}

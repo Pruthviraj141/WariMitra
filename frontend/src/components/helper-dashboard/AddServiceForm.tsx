@@ -47,6 +47,8 @@ export function AddServiceForm({ onClose, onServiceAdded }: AddServiceFormProps)
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
   const [geoLoading, setGeoLoading] = useState(false);
+  const [media, setMedia] = useState<string[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleLocationSelect = async (lat: number, lng: number) => {
     setLocation({ lat, lng });
@@ -62,6 +64,38 @@ export function AddServiceForm({ onClose, onServiceAdded }: AddServiceFormProps)
       console.error('Reverse geocoding failed', e);
     } finally {
       setGeoLoading(false);
+    }
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    
+    const formData = new FormData();
+    formData.append('media', file);
+
+    setIsUploading(true);
+    setError('');
+    try {
+      // In production, this should use the environment API URL
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1'}/upload`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      const data = await res.json();
+      if (data.url) {
+        setMedia(prev => [...prev, data.url]);
+      } else {
+        setError(data.error || 'Failed to upload image');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Error uploading image');
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -82,6 +116,7 @@ export function AddServiceForm({ onClose, onServiceAdded }: AddServiceFormProps)
       city: city.trim().toLowerCase(),
       location: { type: 'Point', coordinates: [location.lng, location.lat] },
       available: true,
+      media: media,
     };
 
     const result = await submitHelperService(payload);
@@ -283,6 +318,38 @@ export function AddServiceForm({ onClose, onServiceAdded }: AddServiceFormProps)
             />
             {geoLoading && <Loader2 size={18} color="var(--color-saffron)" className="animate-spin" />}
           </div>
+        </div>
+
+        <div>
+          <label style={{ fontSize: 'var(--font-size-sm)', fontWeight: 600, color: 'var(--color-text-secondary)', display: 'block', marginBottom: 'var(--spacing-2)' }}>
+            Add Photos (Optional)
+          </label>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
+            {media.map((url, i) => (
+              <img key={i} src={url} alt="upload" style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px' }} />
+            ))}
+            {isUploading && (
+              <div style={{ width: '80px', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-surface)', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
+                <Loader2 size={18} className="animate-spin" color="var(--color-text-secondary)" />
+              </div>
+            )}
+          </div>
+          <input 
+            type="file" 
+            accept="image/*" 
+            style={{
+              width: '100%', padding: 'var(--spacing-3)',
+              borderRadius: 'var(--radius-lg)',
+              backgroundColor: 'var(--color-surface)',
+              border: '1px dashed var(--color-border)',
+              color: 'var(--color-text-primary)',
+              fontSize: 'var(--font-size-sm)',
+              outline: 'none',
+              cursor: 'pointer'
+            }}
+            onChange={handleImageUpload}
+            disabled={isUploading}
+          />
         </div>
 
         {error && (

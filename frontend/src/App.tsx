@@ -12,6 +12,7 @@ import { BottomNavigation } from './components/BottomNavigation';
 import { ProfilePage } from './components/ProfilePage';
 import { OfferHelpPage } from './components/OfferHelpPage';
 import { HelperDashboard } from './components/helper-dashboard/HelperDashboard';
+import { ExplorePage } from './components/ExplorePage';
 import { NotificationProvider } from './context/NotificationContext';
 import type { TabType } from './types';
 
@@ -150,8 +151,8 @@ function App() {
         )}
 
         {currentTab === 'explore' && (
-          <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10, position: 'absolute', width: '100%', height: '100%', pointerEvents: 'none' }}>
-            <p className="text-secondary glass-panel" style={{ padding: '8px 16px', pointerEvents: 'auto' }}>Coming Soon</p>
+          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 10 }}>
+            <ExplorePage onNavigate={setCurrentTab} />
           </div>
         )}
 

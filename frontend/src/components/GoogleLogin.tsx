@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
-const CORE_API_URL = 'http://localhost:3000/api/v1';
+const CORE_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
 
 interface GoogleLoginProps {
   onSuccess: (user: any, token: string) => void;

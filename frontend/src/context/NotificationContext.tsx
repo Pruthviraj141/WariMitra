@@ -30,7 +30,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
   const fetchNotifications = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/v1/reports?status=confirmed&limit=20');
+      const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1'}/reports?status=confirmed&limit=20`);
       if (res.data && res.data.reports) {
         setNotifications(res.data.reports);
       }
@@ -42,7 +42,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
   useEffect(() => {
     fetchNotifications();
 
-    const ws = new WebSocket('ws://localhost:8081/ws/location');
+    const ws = new WebSocket(`ws://${window.location.hostname}:8081/ws/location`);
     
     ws.onopen = () => {
       console.log('Notification WebSocket connected');

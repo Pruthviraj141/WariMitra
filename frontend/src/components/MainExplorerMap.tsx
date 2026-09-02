@@ -4,7 +4,7 @@ import L from 'leaflet';
 import axios from 'axios';
 import { Phone, Loader2 } from 'lucide-react';
 
-const CORE_API_URL = 'http://localhost:3000/api/v1';
+const CORE_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
 
 const createIcon = (color: string, iconUrl: string) => {
   return new L.DivIcon({

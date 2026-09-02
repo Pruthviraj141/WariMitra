@@ -5,6 +5,8 @@
   flex-direction: column;
   background-color: var(--bg-main);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
 }
 
 .mainContent {
@@ -12,6 +14,7 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 80px;
+  will-change: transform;
 }
 
 .desktopSidebar {
