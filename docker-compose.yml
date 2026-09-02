@@ -70,6 +70,9 @@ services:
       dockerfile: Dockerfile
       args:
         - VITE_API_URL=${VITE_API_URL:-http://localhost:3000/api/v1}
+        - VITE_GOOGLE_CLIENT_ID=${VITE_GOOGLE_CLIENT_ID}
+        - VITE_CARTO_API_TOKEN=${VITE_CARTO_API_TOKEN}
+        - VITE_CARTO_MCP_URL=${VITE_CARTO_MCP_URL}
     container_name: visava-frontend
     ports:
       - "80:80"

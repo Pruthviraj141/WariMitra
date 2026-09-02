@@ -292,11 +292,21 @@ To make this magic work, you must add the following **Repository Secrets** to yo
 
 1. **`EC2_HOST`**: The Public IP address of your AWS server (e.g., `54.123.45.67`).
 2. **`EC2_USERNAME`**: The username to log in (usually `ubuntu` for AWS Ubuntu servers).
-3. **`EC2_SSH_KEY`**: The raw text of your `.pem` private key file that AWS gave you when you created the server.
-4. **`PROD_MONGODB_URI`**: The connection string to your production MongoDB Atlas cluster (e.g., `mongodb+srv://admin:password@visava.cluster.mongodb.net/visava`).
-5. **`PROD_VITE_API_URL`**: Your production frontend API path (e.g., `http://54.123.45.67:3000/api/v1`).
-6. **`PROD_PUBLIC_URL`**: Your server's public IP or domain (e.g., `http://54.123.45.67`). This replaces your ngrok URL for Vapi!
-7. **`PROD_CORS_ORIGINS`**: The URLs allowed to talk to your backend (e.g., `http://54.123.45.67,http://localhost:5173`).
+3. **`EC2_SSH_KEY`**: The raw text of your `.pem` private key file.
+4. **`PROD_VITE_API_URL`**: Your production frontend API path (e.g., `http://54.123.45.67:3000/api/v1`).
+5. **`PROD_PUBLIC_URL`**: Your server's public IP (e.g., `http://54.123.45.67`). This replaces ngrok!
+6. **`PROD_CORS_ORIGINS`**: The URLs allowed to talk to your backend (e.g., `http://54.123.45.67,http://localhost:5173`).
+7. **`PROD_MONGODB_URI`**: The connection string to your production MongoDB Atlas cluster.
+8. **`PROD_JWT_SECRET`**: A random secure string for user authentication tokens.
+9. **`PROD_INTERNAL_API_KEY`**: The secret token shared between your core-api and voice-agent.
+10. **`PROD_GOOGLE_CLIENT_ID`**: Your Google OAuth Client ID for frontend login.
+11. **`PROD_TWILIO_ACCOUNT_SID`** (Optional): Your Twilio SID for SMS.
+12. **`PROD_TWILIO_AUTH_TOKEN`** (Optional): Your Twilio Auth Token.
+13. **`PROD_TWILIO_VERIFY_SERVICE_SID`** (Optional): Your Twilio Verify SID.
+14. **`PROD_VAPI_PUBLIC_KEY`**: Your Vapi Public Key.
+15. **`PROD_VAPI_PRIVATE_KEY`**: Your Vapi Private Key.
+16. **`PROD_CARTO_API_TOKEN`** (Optional): Token for Carto maps.
+17. **`PROD_CARTO_MCP_URL`** (Optional): URL for Carto map service.
 
 *Note: You must SSH into your EC2 instance ONE TIME manually to run `git clone` and set up the `~/Visava` folder before the automated pipeline can take over.*
 

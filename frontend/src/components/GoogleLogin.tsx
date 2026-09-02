@@ -50,7 +50,7 @@ export default function GoogleLogin({ onSuccess, onError }: GoogleLoginProps) {
     if (!scriptLoaded || !window.google || !googleButtonRef.current) return;
 
     window.google.accounts.id.initialize({
-      client_id: '580458956487-5delsv9j0l1c0apvmg2q08lg0623t8fd.apps.googleusercontent.com',
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || '580458956487-5delsv9j0l1c0apvmg2q08lg0623t8fd.apps.googleusercontent.com',
       callback: handleGoogleResponse,
       auto_select: false,
     });
