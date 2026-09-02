@@ -2,7 +2,7 @@ import type { UserLocation } from '../types';
 
 export class GeoWebSocket {
   private ws: WebSocket | null = null;
-  private url = `ws://${window.location.hostname}:8081/ws/location`;
+  private url = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws/location`;
   private wariId: string;
   private onLocationUpdate: (location: UserLocation) => void;
 
