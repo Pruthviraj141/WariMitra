@@ -1,0 +1,8 @@
+services:
+  frontend:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./frontend/nginx.prod.conf:/etc/nginx/conf.d/nginx.conf:ro

@@ -2,7 +2,7 @@
 
 > [!IMPORTANT]
 > **READ THIS BEFORE TOUCHING THE SERVERS.** 
-> This document is the ultimate, end-to-end guide to the Visava deployment infrastructure. It explains exactly how we transformed a local development environment into a production-grade, highly scalable cloud architecture on AWS using Docker and GitHub Actions. Do not waste time watching tutorials—everything a DevOps engineer needs to know is documented right here.
+> This document is the ultimate, end-to-end guide to the Visava deployment infrastructure. It explains exactly how we transformed a local development environment into a production-grade, highly scalable cloud architecture on AWS using Docker, custom domains, SSL encryption, and GitHub Actions.
 
 ---
 
@@ -11,7 +11,7 @@
 To make an application deployable anywhere without changing the code, it must follow the **12-Factor App methodology**. This means **zero hardcoded URLs**.
 
 ### The Development vs. Deployment Problem
-Locally, your backend runs on `http://localhost:3000`. In production, it runs on `http://65.2.142.103:3000`. If you hardcode `localhost` in your React components, the production build will break because users' browsers will try to search their *own* computers for the backend!
+Locally, your backend runs on `http://localhost:3000`. In production, it runs on a live domain (`https://visava.work.gd`). If you hardcode `localhost` in your React components, the production build will break because users' browsers will try to search their *own* computers for the backend!
 
 ### The Solution: Environment Variables & Docker Build Args
 We solved this by dynamically pulling URLs at runtime and build time:
@@ -70,7 +70,63 @@ git clone https://github.com/Pruthviraj141/WariMitra.git Visava
 
 ---
 
-## 3. Continuous Integration & Deployment (GitHub Actions)
+## 3. Domain Name & HTTPS Security (SSL)
+
+A modern web app **must** run on HTTPS, otherwise features like Geolocation and Microphone (Voice Agent) are strictly blocked by the browser.
+
+### 1. DNS Configuration
+In your DNS provider (e.g., dnsexit.com), create the following records:
+* **A Record** for `visava.work.gd` pointing to your EC2 Public IP (`65.2.142.103`).
+* **CNAME Record** for `www.visava.work.gd` aliased to `visava.work.gd`.
+
+### 2. AWS Security Group
+Open **Port 443 (HTTPS)** for `0.0.0.0/0` in your EC2 Security Group settings.
+
+### 3. Generate Free SSL via Let's Encrypt (Certbot)
+On your EC2 server, temporarily stop Docker to free up port 80, then generate the certificates:
+```bash
+cd ~/Visava
+sudo docker compose down
+sudo apt-get install -y certbot
+sudo certbot certonly --standalone -d visava.work.gd -d www.visava.work.gd
+```
+This saves the certificates securely in `/etc/letsencrypt/live/visava.work.gd/` on your host machine.
+
+### 4. Nginx & Docker Updates
+We updated `docker-compose.yml` to mount these certificates natively into the frontend container:
+```yaml
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+```
+We then rewrote `frontend/nginx.conf` to redirect all HTTP traffic to HTTPS, load the SSL certificates, and securely proxy traffic to the internal Node.js backend.
+
+> [!CAUTION]
+> **Nginx Root Permissions bug:** We had to remove the `USER appuser` directive from `frontend/Dockerfile`. If Nginx runs as a non-root user, it cannot read the strict `/etc/letsencrypt/` files mounted from the host, causing the container to crash immediately.
+
+---
+
+## 4. Google OAuth Configuration (Solving "Unauthorized Domain")
+
+When moving from localhost to a live domain, Google Login will instantly break. Google checks the origin of the request, and if it's not whitelisted, it blocks the login popup.
+
+**To fix this permanently:**
+1. Go to the [Google Cloud Credentials Console](https://console.cloud.google.com/apis/credentials).
+2. Edit your Web Application OAuth Client.
+3. Under **Authorized JavaScript origins**, add exactly:
+   * `https://visava.work.gd`
+   * `https://www.visava.work.gd`
+   * `http://localhost:5173` *(Keep this for local testing!)*
+4. Under **Authorized redirect URIs**, add:
+   * `https://visava.work.gd`
+   * `http://localhost:5173`
+5. Save the changes. (Google takes up to 5 minutes to propagate this update).
+
+---
+
+## 5. Continuous Integration & Deployment (GitHub Actions)
 
 Our CI/CD pipeline (`.github/workflows/deploy.yml`) is the heart of the deployment. It entirely eliminates manual server maintenance.
 
@@ -89,9 +145,9 @@ To make the pipeline function, these exact keys must be added to **Settings -> S
 | `EC2_HOST` | `65.2.142.103` (Server Public IP) |
 | `EC2_USERNAME` | `ubuntu` |
 | `EC2_SSH_KEY` | Raw text of `WariEC2.pem` |
-| `PROD_PUBLIC_URL` | `http://65.2.142.103` |
-| `PROD_VITE_API_URL` | `http://65.2.142.103:3000/api/v1` |
-| `PROD_CORS_ORIGINS` | `http://65.2.142.103,http://localhost:5173` |
+| `PROD_PUBLIC_URL` | `https://visava.work.gd` |
+| `PROD_VITE_API_URL` | `https://visava.work.gd/api/v1` |
+| `PROD_CORS_ORIGINS` | `https://visava.work.gd,https://www.visava.work.gd,http://localhost:5173` |
 | `PROD_MONGODB_URI` | MongoDB Atlas Connection String |
 | `PROD_JWT_SECRET` | Secure random string |
 | `PROD_INTERNAL_API_KEY` | Secure token shared between microservices |
@@ -106,7 +162,7 @@ To make the pipeline function, these exact keys must be added to **Settings -> S
 
 ---
 
-## 4. Key DevOps Insights & Golden Rules
+## 6. Key DevOps Insights & Golden Rules
 
 > [!CAUTION]
 > **1. NEVER Commit `.env` files to Git.** 

@@ -76,9 +76,6 @@ services:
     container_name: visava-frontend
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - core-api
       - voice-agent

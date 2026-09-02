@@ -58,7 +58,7 @@ jobs:
             echo "CORS_ORIGINS=${{ secrets.PROD_CORS_ORIGINS }}" >> geo-service/.env
 
             # 4. Build and restart all containers
-            sudo docker compose up -d --build
+            sudo docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
 
             # 5. Clean up old unused Docker images to save disk space
             sudo docker image prune -f
