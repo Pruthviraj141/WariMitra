@@ -20,7 +20,7 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 app.use(cors({
-  origin: env.CORS_ORIGINS.split(","),
+  origin: true,
   credentials: true,
 }));
 app.use(express.json({ limit: "10mb" }));

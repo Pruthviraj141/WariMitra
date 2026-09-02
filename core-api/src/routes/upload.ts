@@ -3,18 +3,26 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+
 const router = Router();
 
-const uploadsDir = path.join(process.cwd(), "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, uploadsDir),
-  filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    cb(null, `${Date.now()}-${file.originalname.split('.')[0].trim().replace(/\s+/g, '_')}${ext}`);
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (_req, file) => {
+    return {
+      folder: 'visava_uploads',
+      format: 'webp', // auto convert to webp for performance
+      public_id: `${Date.now()}-${file.originalname.split('.')[0].trim().replace(/\s+/g, '_')}`,
+    };
   },
 });
 
@@ -39,7 +47,8 @@ router.post("/", (req: Request, res: Response, next) => {
         return res.status(400).json({ error: "No image file provided. Please upload an image with field name 'media'." });
       }
 
-      const fileUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+      // Cloudinary stores the URL in req.file.path
+      const fileUrl = req.file.path;
       res.status(201).json({
         status: "ok",
         url: fileUrl,

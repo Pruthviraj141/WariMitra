@@ -30,7 +30,7 @@ const seedData = async () => {
         name: "Sant Tukaram Bhakta Niwas",
         type: "shelter",
         location: { type: "Point", coordinates: [75.3236, 17.6772] }, // [lng, lat]
-        description: "Free shelter for Warkaris. Capacity: 500.",
+        description: "Free shelter for Warkaris. Landmark: Near the big Banyan tree (Vatavruksha) near the river.",
         contactPhone: "+919876543210",
         operator: fakeAdminId,
         verified: true,
@@ -50,10 +50,10 @@ const seedData = async () => {
     // 2. Create Services (Annachhatra, Water)
     const services = await Service.insertMany([
       {
-        name: "Shri Gajanan Maharaj Annachhatra",
+        name: "Shri Gajanan Maharaj Vadevale",
         type: "food",
         location: { type: "Point", coordinates: [75.3210, 17.6750] },
-        description: "Serving Mahaprasad twice a day.",
+        description: "Famous hot Vada Pav and Mahaprasad. Landmark: Opposite the main ST Bus Stand.",
         available: true,
         operator: fakeAdminId,
         verified: true,
