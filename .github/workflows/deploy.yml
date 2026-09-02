@@ -1,0 +1,46 @@
+name: Deploy Visava to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Execute Deployment Script via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # 1. Navigate to the project directory
+            cd ~/Visava
+
+            # 2. Pull the latest code from the main branch
+            git pull origin main
+
+            # 3. Securely generate the production .env files
+            echo "VITE_API_URL=${{ secrets.PROD_VITE_API_URL }}" > frontend/.env
+            
+            echo "MONGODB_URI=${{ secrets.PROD_MONGODB_URI }}" > core-api/.env
+            echo "REDIS_URL=redis://redis:6379" >> core-api/.env
+            echo "GEO_SERVICE_URL=http://geo-service:8081" >> core-api/.env
+            echo "CORS_ORIGINS=${{ secrets.PROD_CORS_ORIGINS }}" >> core-api/.env
+            
+            echo "CORE_API_URL=http://core-api:3000" > voice-agent/.env
+            echo "PUBLIC_URL=${{ secrets.PROD_PUBLIC_URL }}" >> voice-agent/.env
+            echo "CORS_ORIGINS=${{ secrets.PROD_CORS_ORIGINS }}" >> voice-agent/.env
+            
+            echo "REDIS_URL=redis://redis:6379" > geo-service/.env
+            echo "CORS_ORIGINS=${{ secrets.PROD_CORS_ORIGINS }}" >> geo-service/.env
+
+            # 4. Build and restart all containers
+            sudo docker compose up -d --build
+
+            # 5. Clean up old unused Docker images to save disk space
+            sudo docker image prune -f
