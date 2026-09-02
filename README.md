@@ -1,345 +1,164 @@
-# WariMitra (Visava)
+<div align="center">
+  
+![Header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=300&section=header&text=Visava&fontSize=100&fontAlignY=35&desc=AI-Powered%20Pilgrimage%20Assistance&descAlignY=55&descAlign=50&animation=fadeIn)
 
-**Connecting Varkaris with Help in Real Time**
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=26&pause=1000&color=F77E21&center=true&vCenter=true&width=800&height=50&lines=Connecting+Varkaris+with+Help+in+Real+Time;Voice+AI.+Real-time+Maps.+Lifesaving;Empowering+the+Warkari+Community+Worldwide" alt="Typing SVG" />
 
-An AI-powered voice agent system that provides real-time assistance to people in need during emergencies and pilgrimages. The system uses voice AI to help users find nearby services, report missing persons, and access emergency resources in Marathi and English.
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Active%20Development-success.svg?style=for-the-badge&logo=github">
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge&logo=github">
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED.svg?style=for-the-badge&logo=docker">
+  <img src="https://img.shields.io/badge/AWS-EC2%20Deployed-FF9900.svg?style=for-the-badge&logo=amazon-aws">
+</p>
 
-## Features
+---
 
-- 🎙️ **AI Voice Agent** - Natural language voice interface for hands-free assistance
-- 🗺️ **Location Services** - Find nearby shelters, hospitals, and emergency services
-- 📱 **Real-time Communication** - Instant responses via WebSocket connections
-- 🌐 **Multi-language Support** - Marathi and English language support
-- 🔒 **Secure Authentication** - JWT-based authentication system
-- 📊 **Analytics Dashboard** - Monitor usage and service metrics
-- 🐳 **Docker Ready** - Complete containerized setup for easy deployment
+### 🌟 *The Future of Pilgrimage Safety & Assistance* 🌟
+Visava (WariMitra) is a next-generation, highly scalable **Microservices Platform** designed to save lives and provide real-time assistance during massive pilgrimages. Powered by state-of-the-art **Conversational AI**, it allows users to find shelters, medical camps, and report missing persons entirely hands-free in multiple languages (Marathi, English).
 
-## Tech Stack
+---
 
-### Backend
-- **Core API**: Node.js + Express + TypeScript
-- **Geo Service**: Go + Redis caching
-- **Voice Agent**: Node.js + WebSocket + Vapi AI
-- **Database**: MongoDB Atlas (Cloud)
-- **Cache**: Redis 7.0
+</div>
 
-### Frontend
-- **Framework**: React 19 + TypeScript
-- **Build Tool**: Vite 8
-- **UI Library**: Leaflet for maps, Lucide for icons
-- **Styling**: Tailwind CSS
+<br>
 
-### Infrastructure
-- **Containerization**: Docker + Docker Compose
-- **Reverse Proxy**: Nginx
-- **Process Manager**: Concurrently (local dev)
+<div align="center">
+  <h2>🚀 Supercharged Tech Stack</h2>
+  <p>Engineered for massive scale, real-time latency, and uncompromised reliability.</p>
+  <img src="https://skillicons.dev/icons?i=react,ts,nodejs,express,go,mongodb,redis,docker,aws,nginx,vite,git&theme=dark&perline=6" />
+</div>
 
-## Project Structure
+<br>
 
+---
+
+## 🔥 Key Features
+
+<table align="center">
+  <tr>
+    <td align="center" width="50%">
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3h0Y2xtaTh5am83Nmh0ZWc3ZzVzYnh4OXJ1cWVxYzdtaWx0NXg1eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L1R1tvI9svkIWwpVYr/giphy.gif" width="100px" alt="Voice AI"><br>
+      <b>🎙️ Conversational AI Agent</b><br>
+      <i>Hands-free Vapi AI integration offering sub-second response times in native Marathi.</i>
+    </td>
+    <td align="center" width="50%">
+      <img src="https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif" width="100px" alt="Real Time"><br>
+      <b>🗺️ Live Geolocation Tracking</b><br>
+      <i>React + Leaflet maps rendering real-time shelters, medical camps, and safe zones.</i>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="https://media.giphy.com/media/3o7aD2saalEvTe8sW4/giphy.gif" width="100px" alt="Microservices"><br>
+      <b>⚡ Go-Powered Geo-Service</b><br>
+      <i>Lightning-fast geospatial querying backed by Redis caching for immediate lookups.</i>
+    </td>
+    <td align="center" width="50%">
+      <img src="https://media.giphy.com/media/Jso1SVsFbgHkH20NnZ/giphy.gif" width="100px" alt="Broadcast"><br>
+      <b>🚨 Emergency Broadcast System</b><br>
+      <i>Instant missing-person reporting that broadcasts to all volunteers in the network.</i>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 🏗️ System Architecture
+
+Visava is built on a professional, loosely-coupled microservices architecture designed for high availability on AWS.
+
+```mermaid
+graph TD
+    %% Styling
+    classDef user fill:#FF9900,stroke:#333,stroke-width:4px,color:#fff;
+    classDef gateway fill:#2496ED,stroke:#333,stroke-width:2px,color:#fff;
+    classDef service fill:#68A063,stroke:#333,stroke-width:2px,color:#fff;
+    classDef ai fill:#673AB7,stroke:#333,stroke-width:2px,color:#fff;
+    classDef db fill:#47A248,stroke:#333,stroke-width:2px,color:#fff;
+    classDef cache fill:#DC382D,stroke:#333,stroke-width:2px,color:#fff;
+
+    %% Nodes
+    User((👤 Varkari / User)):::user
+    Nginx[🌐 Nginx / React Frontend]:::gateway
+    Vapi[🎙️ Vapi AI Cloud]:::ai
+    VA[🤖 Voice Agent (Node.js)]:::service
+    CA[⚙️ Core API (Node.js)]:::service
+    GS[🗺️ Geo Service (Go)]:::service
+    MongoDB[(🍃 MongoDB Atlas)]:::db
+    Redis[(🔴 Redis Cache)]:::cache
+
+    %% Connections
+    User -- Browser / GPS --> Nginx
+    User -- Phone / Voice --> Vapi
+    Nginx -- REST API --> CA
+    Vapi -- Webhook / Tools --> VA
+    VA -- Fetch Services --> CA
+    CA -- Geo Queries --> GS
+    CA -- Read / Write --> MongoDB
+    GS -- Sub-millisecond Cache --> Redis
 ```
-WariMitra/
-├── core-api/           # Backend API server
-│   ├── src/           # TypeScript source code
-│   ├── Dockerfile     # Docker configuration
-│   └── .env.example   # Environment variables template
-├── geo-service/        # Geographic service (Go)
-│   ├── internal/      # Go packages
-│   ├── main.go        # Entry point
-│   └── Dockerfile     # Docker configuration
-├── voice-agent/        # Voice AI agent
-│   ├── src/           # TypeScript source code
-│   ├── Dockerfile     # Docker configuration
-│   └── .env.example   # Environment variables template
-├── frontend/           # React web application
-│   ├── src/           # React components
-│   ├── Dockerfile     # Docker configuration
-│   └── nginx.conf     # Nginx configuration
-├── docker-compose.yml  # Docker orchestration
-├── start.sh           # Centralized startup script
-└── README.md          # This file
-```
 
-**Note:** MongoDB is hosted on MongoDB Atlas (cloud). Connection details are in `core-api/.env`.
+---
 
-## Prerequisites
+## 🚀 Quick Start (Dockerized)
 
-### For Docker Setup (Recommended)
-- **Docker** 20.10+ ([Install Docker](https://docs.docker.com/get-docker/))
-- **Docker Compose** 2.0+ ([Install Compose](https://docs.docker.com/compose/install/))
-- **Git** ([Install Git](https://git-scm.com/downloads))
+Getting Visava running is literally a single command thanks to our fully containerized Docker architecture.
 
-### For Local Development
-- **Node.js** 18+ ([Install Node.js](https://nodejs.org/))
-- **Go** 1.21+ ([Install Go](https://golang.org/dl/))
-- **Redis** 7.0+ (or use Docker)
-- **npm** or **pnpm** ([Install npm](https://www.npmjs.com/get-npm))
+<details>
+<summary><b>🛠️ Click to reveal Setup Instructions</b></summary>
 
-## Quick Start
-
-### Option 1: Docker Setup (Recommended)
-
-The easiest way to get started. This sets up all services with a single command.
-
+### 1. Clone & Configure
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd WariMitra
+git clone https://github.com/Pruthviraj141/WariMitra.git Visava
+cd Visava
 
 # Copy environment files
-cp .env.example .env
 cp core-api/.env.example core-api/.env
 cp voice-agent/.env.example voice-agent/.env
-cp geo-service/.env.example geo-service/.env
-cp frontend/.env.example frontend/.env
-
-# Edit environment files with your credentials
-# At minimum, update core-api/.env and voice-agent/.env
-
-# Start all services
-./start.sh up
 ```
 
-**Services will be available at:**
-- Frontend: http://localhost:80
-- Core API: http://localhost:3000
-- Geo Service: http://localhost:8081
-- Voice Agent: http://localhost:4000
-- Redis: localhost:6379
-- MongoDB: Cloud (MongoDB Atlas)
-
-### Option 2: Local Development
-
-Run services locally without Docker (requires Node.js, Go, MongoDB, Redis).
-
+### 2. Launch the Ecosystem
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd WariMitra
-
-# Copy environment files
-cp .env.example .env
-cp core-api/.env.example core-api/.env
-cp voice-agent/.env.example voice-agent/.env
-cp geo-service/.env.example geo-service/.env
-cp frontend/.env.example frontend/.env
-
-# Edit environment files with your credentials
-
-# Start all services locally
-./start.sh up --local
+docker compose up -d --build
 ```
 
-This uses `concurrently` to run all services in a single terminal with color-coded output.
+**That's it! Your services are live:**
+*   🌐 **Frontend**: `http://localhost:80`
+*   ⚙️ **Core API**: `http://localhost:3000`
+*   🗺️ **Geo Service**: `http://localhost:8081`
+*   🤖 **Voice Agent**: `http://localhost:4000`
 
-## Environment Variables
+</details>
 
-### Core API (`core-api/.env`)
+---
 
-```env
-NODE_ENV=development
-PORT=3000
-MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/visava?retryWrites=true&w=majority
-REDIS_URL=redis://redis:6379
-GEO_SERVICE_URL=http://geo-service:8081
-JWT_SECRET=your_jwt_secret_here
-TWILIO_ACCOUNT_SID=your_twilio_account_sid
-TWILIO_AUTH_TOKEN=your_twilio_auth_token
-TWILIO_PHONE_NUMBER=your_twilio_phone_number
-```
+## 🔮 Future Scope & Roadmap
 
-### Voice Agent (`voice-agent/.env`)
+We are constantly pushing the boundaries of what is possible in disaster-management and pilgrimage tech.
 
-```env
-PORT=4000
-CORE_API_URL=http://core-api:3000
-INTERNAL_API_KEY=your_internal_api_key
-VAPI_API_KEY=your_vapi_api_key
-```
+| Phase | Milestone | Status | Description |
+| :---: | :--- | :---: | :--- |
+| **I** | **Microservices Foundation & Voice AI** | 🟢 Done | Vapi AI integration, Node/Go split, Dockerization, AWS CI/CD. |
+| **II** | **Offline Mesh Networks** | 🟡 IP | Allow Varkaris to communicate without internet using Bluetooth mesh algorithms. |
+| **III** | **Predictive Crowd Control** | 🔴 Planned | AI modeling using historical data to predict stampedes and dynamically reroute crowds. |
+| **IV** | **Drone Medical Delivery** | 🔴 Planned | Automated dispatch of emergency medical supplies to exact GPS coordinates via drones. |
 
-### Geo Service (`geo-service/.env`)
+---
 
-```env
-PORT=8081
-REDIS_URL=redis://redis:6379
-```
+## 🤝 Contributing
 
-### Frontend (`frontend/.env`)
+We welcome PRs from developers of all skill levels! If you want to help save lives using code, check out our issues tab.
 
-```env
-VITE_API_URL=http://localhost:3000
-VITE_WS_URL=ws://localhost:4000
-```
-
-## Development
-
-### Running Individual Services
-
-```bash
-# Core API only
-./start.sh dev-core
-
-# Geo Service only
-./start.sh dev-geo
-
-# Voice Agent only
-./start.sh dev-voice
-```
-
-### Building for Production
-
-```bash
-# Build all Docker images
-docker compose build
-
-# Build specific service
-docker compose build core-api
-docker compose build geo-service
-docker compose build voice-agent
-docker compose build frontend
-```
-
-### Viewing Logs
-
-```bash
-# All services
-./start.sh logs
-
-# Specific service
-./start.sh logs core-api
-./start.sh logs voice-agent
-```
-
-### Service Status
-
-```bash
-./start.sh status
-```
-
-## API Endpoints
-
-### Core API (port 3000)
-
-- `GET /health` - Health check
-- `GET /api/v1/camps` - List all camps
-- `GET /api/v1/services` - List all services
-- `POST /api/v1/reports` - Create a report
-- `GET /api/v1/services/nearby` - Find nearby services
-
-### Geo Service (port 8081)
-
-- `GET /health` - Health check
-- `POST /api/v1/geo/translate` - Translate location to coordinates
-- `GET /api/v1/geo/nearby` - Find nearby locations
-
-### Voice Agent (port 4000)
-
-- `GET /health` - Health check
-- `POST /api/v1/voice/tools` - Vapi tool endpoint
-- `WS /ws` - WebSocket connection for real-time communication
-
-## Voice AI Setup
-
-### Vapi Configuration
-
-1. Create a Vapi account at [vapi.ai](https://vapi.ai)
-2. Import the assistant configuration from `vapi-assistant-config.json`
-3. Set up an Ngrok tunnel to expose your local voice agent:
-
-```bash
-# Start Ngrok tunnel
-ngrok http --url=your-static-domain.ngrok-free.dev 4000
-```
-
-4. Update the Vapi assistant configuration with your Ngrok URL
-5. Set transcriber to Deepgram (Nova-2, Language: hi)
-6. Set LLM model to GPT-4o
-
-### How It Works
-
-1. User speaks to Vapi (e.g., "Find a shelter near Pandharpur")
-2. Vapi triggers the `find_nearby_services` tool
-3. Voice Agent receives the request via Ngrok
-4. Voice Agent translates location to coordinates using Geo Service
-5. Voice Agent queries Core API for nearby services
-6. Voice Agent formats and returns the response to Vapi
-7. AI reads the result back to the user in Marathi/English
-
-## Troubleshooting
-
-### Common Issues
-
-**Port conflicts:**
-```bash
-# Check what's using the port
-lsof -i :3000
-# Kill the process
-kill -9 <PID>
-```
-
-**Docker build fails:**
-```bash
-# Clean Docker cache
-docker system prune -a
-# Rebuild
-docker compose build --no-cache
-```
-
-**MongoDB connection refused:**
-```bash
-# Check your MongoDB Atlas connection string in core-api/.env
-# Ensure your IP is whitelisted in MongoDB Atlas
-# Verify network access in MongoDB Atlas dashboard
-```
-
-**Redis connection refused:**
-```bash
-# Check if Redis is running
-docker compose ps redis
-# Check logs
-docker compose logs redis
-```
-
-### Resetting Everything
-
-```bash
-# Stop all services and remove volumes
-docker compose down -v
-
-# Remove all images
-docker system prune -a
-
-# Start fresh
-./start.sh up
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-### Development Guidelines
+---
 
-- Follow TypeScript best practices
-- Write tests for new features
-- Update documentation as needed
-- Use conventional commits
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-- **Documentation**: See [SETUP_GUIDE.md](SETUP_GUIDE.md) for detailed setup instructions
-- **Issues**: Report bugs via GitHub Issues
-- **Discussions**: Join conversations in GitHub Discussions
-
-## Acknowledgments
-
-- Built with ❤️ for the Varkari community
-- Powered by Vapi AI for voice interactions
-- Uses Cloudflare for infrastructure
-- Map data from OpenStreetMap
+<div align="center">
+  <b>Built with ❤️ for the Varkari Community</b>
+  <br><br>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" width="100%">
+</div>
