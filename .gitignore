@@ -15,7 +15,7 @@ build/
 .env
 .env.local
 .env.*.local
-
+WariEC2.pem
 # IDE
 .idea/
 .vscode/
