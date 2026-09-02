@@ -41,6 +41,11 @@ jobs:
             echo "TWILIO_VERIFY_SERVICE_SID=${{ secrets.PROD_TWILIO_VERIFY_SERVICE_SID }}" >> core-api/.env
             echo "VAPI_PUBLIC_KEY=${{ secrets.PROD_VAPI_PUBLIC_KEY }}" >> core-api/.env
             echo "VAPI_PRIVATE_KEY=${{ secrets.PROD_VAPI_PRIVATE_KEY }}" >> core-api/.env
+            echo "CLOUDINARY_CLOUD_NAME=${{ secrets.PROD_CLOUDINARY_CLOUD_NAME }}" >> core-api/.env
+            echo "CLOUDINARY_API_KEY=${{ secrets.PROD_CLOUDINARY_API_KEY }}" >> core-api/.env
+            echo "CLOUDINARY_API_SECRET=${{ secrets.PROD_CLOUDINARY_API_SECRET }}" >> core-api/.env
+            echo "GOOGLE_CLIENT_ID=${{ secrets.PROD_GOOGLE_CLIENT_ID }}" >> core-api/.env
+            echo "GOOGLE_CLIENT_SECRET=${{ secrets.PROD_GOOGLE_CLIENT_SECRET }}" >> core-api/.env
             
             echo "CORE_API_URL=http://core-api:3000" > voice-agent/.env
             echo "PUBLIC_URL=${{ secrets.PROD_PUBLIC_URL }}" >> voice-agent/.env
