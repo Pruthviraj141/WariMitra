@@ -42,7 +42,8 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
   useEffect(() => {
     fetchNotifications();
 
-    const ws = new WebSocket(`ws://${window.location.hostname}:8081/ws/location`);
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const ws = new WebSocket(`${protocol}//${window.location.host}/ws/location`);
     
     ws.onopen = () => {
       console.log('Notification WebSocket connected');
